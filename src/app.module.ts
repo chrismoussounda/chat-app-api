@@ -10,9 +10,11 @@ import { DirectMessagesModule } from './direct-messages/direct-messages.module';
 import { LivekitModule } from './livekit/livekit.module';
 import { SocketModule } from './socket/socket.module';
 import { ConversationModule } from './conversation/conversation.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     UserModule,
     PrismaModule,
     AuthModule,
