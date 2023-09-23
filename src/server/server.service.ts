@@ -94,32 +94,33 @@ export class ServerService {
   }
 
   async joinServer(inviteCode: string, userId: string) {
-    const member = this.prismaService.member.findFirst({
-      where: {
-        server: {
-          inviteCode,
-          members: {
-            some: {
-              userId,
-            },
-          },
-        },
-      },
-    });
-    if (member)
-      throw new ConflictException('You are already a mamber of that server');
-    return this.prismaService.server.update({
+    const server = await this.prismaService.server.findFirst({
       where: {
         inviteCode,
-      },
-      data: {
         members: {
-          create: {
-            userId,
+          none: {
+            userId: userId,
+          },
+        },
+      },
+      include: {
+        channels: {
+          orderBy: {
+            createAt: 'asc',
           },
         },
       },
     });
+    if (!server)
+      throw new ConflictException('You are already a member of that server');
+    await this.prismaService.member.create({
+      data: {
+        userId,
+        serverId: server.id,
+      },
+    });
+    await this.deleteDuplicateMembers(userId, server.id);
+    return server;
   }
 
   async removeMember(
@@ -140,11 +141,18 @@ export class ServerService {
       },
       data: {
         members: {
-          delete: {
+          deleteMany: {
             id: memberId,
             userId: {
               not: userId,
             },
+          },
+        },
+      },
+      include: {
+        members: {
+          include: {
+            user: true,
           },
         },
       },
@@ -230,5 +238,26 @@ export class ServerService {
         userId,
       },
     });
+  }
+
+  async deleteDuplicateMembers(userId: string, serverId: string) {
+    // Find all members with the given userId and serverId
+    const members = await this.prismaService.member.findMany({
+      where: {
+        userId,
+        serverId,
+      },
+    });
+
+    // If there are more than one members, delete all but one of them
+    if (members.length > 1) {
+      for (let i = 1; i < members.length; i++) {
+        await this.prismaService.member.delete({
+          where: {
+            id: members[i].id,
+          },
+        });
+      }
+    }
   }
 }
