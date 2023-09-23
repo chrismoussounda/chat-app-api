@@ -93,12 +93,16 @@ export class ServerService {
     });
   }
 
-  async join(inviteCode: string, userId: string) {
+  async joinServer(inviteCode: string, userId: string) {
     const member = this.prismaService.member.findFirst({
       where: {
-        userId,
         server: {
           inviteCode,
+          members: {
+            some: {
+              userId,
+            },
+          },
         },
       },
     });

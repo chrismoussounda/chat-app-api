@@ -64,7 +64,7 @@ export class ServerController {
 
   @Patch(':id/join')
   addMember(@Param('id') inviteCode: string, @GetUser() user: User) {
-    return this.serverService.join(inviteCode, user.id);
+    return this.serverService.joinServer(inviteCode, user.id);
   }
 
   @Delete(':id/remove-member')
