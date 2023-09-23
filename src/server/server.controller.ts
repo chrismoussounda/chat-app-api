@@ -62,9 +62,9 @@ export class ServerController {
     );
   }
 
-  @Patch(':id/add-member')
-  addMember(@Param('id') id: string, @GetUser() user: User) {
-    return this.serverService.addMember(id, user.id);
+  @Patch(':id/join')
+  addMember(@Param('id') inviteCode: string, @GetUser() user: User) {
+    return this.serverService.join(inviteCode, user.id);
   }
 
   @Delete(':id/remove-member')

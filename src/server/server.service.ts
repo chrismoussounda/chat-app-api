@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -92,15 +93,20 @@ export class ServerService {
     });
   }
 
-  async addMember(id: string, userId: string) {
+  async join(inviteCode: string, userId: string) {
+    const member = this.prismaService.member.findFirst({
+      where: {
+        userId,
+        server: {
+          inviteCode,
+        },
+      },
+    });
+    if (member)
+      throw new ConflictException('You are already a mamber of that server');
     return this.prismaService.server.update({
       where: {
-        id,
-        members: {
-          none: {
-            userId,
-          },
-        },
+        inviteCode,
       },
       data: {
         members: {
