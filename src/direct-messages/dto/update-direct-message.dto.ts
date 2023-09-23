@@ -1,15 +1,15 @@
-import { IsString, IsNotEmpty, IsUUID } from 'class-validator';
+import { IsString, IsNotEmpty, IsMongoId } from 'class-validator';
 
 export class UpdateDirectMessageDto {
   @IsString()
   @IsNotEmpty()
   content: string;
 
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   memberId: string;
 
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   conversationId: string;
 }

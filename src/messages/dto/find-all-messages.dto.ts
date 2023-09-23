@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsMongoId } from 'class-validator';
 
 export class FindAllMessagesDto {
   @IsString()
   @IsOptional()
   cursor: string;
 
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   channelId: string;
 }

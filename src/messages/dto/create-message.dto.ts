@@ -2,7 +2,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsUUID,
+  IsMongoId,
   IsUrl,
 } from 'class-validator';
 
@@ -15,11 +15,11 @@ export class CreateMessageDto {
   @IsOptional()
   fileUrl: string;
 
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   serverId: string;
 
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   channelId: string;
 }

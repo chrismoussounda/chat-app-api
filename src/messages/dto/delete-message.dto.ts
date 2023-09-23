@@ -2,16 +2,16 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsUUID,
+  IsMongoId,
   IsUrl,
 } from 'class-validator';
 
 export class DeleteMessageDto {
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   serverId: string;
 
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   channelId: string;
 }

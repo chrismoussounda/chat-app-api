@@ -3,7 +3,7 @@ import {
   IsNotEmpty,
   IsUrl,
   IsOptional,
-  IsUUID,
+  IsMongoId,
 } from 'class-validator';
 
 export class CreateDirectMessageDto {
@@ -15,11 +15,11 @@ export class CreateDirectMessageDto {
   @IsOptional()
   fileUrl: string;
 
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   memberId: string;
 
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   conversationId: string;
 }

@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString, IsMongoId } from 'class-validator';
 
 export class CreateConversationDto {
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   memberOneId: string;
 
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   memberTwoId: string;
 }

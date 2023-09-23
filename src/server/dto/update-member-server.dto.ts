@@ -1,8 +1,8 @@
 import { MemberRole } from '@prisma/client';
-import { IsIn, IsNotEmpty, IsUUID } from 'class-validator';
+import { IsIn, IsNotEmpty, IsMongoId } from 'class-validator';
 
 export class UpdateMemberServerDto {
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   memberId: string;
 

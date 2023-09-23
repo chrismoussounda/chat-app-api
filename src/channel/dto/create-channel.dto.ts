@@ -1,5 +1,11 @@
 import { ChannelType } from '@prisma/client';
-import { IsIn, IsNotEmpty, IsNotIn, IsString, IsUUID } from 'class-validator';
+import {
+  IsIn,
+  IsNotEmpty,
+  IsNotIn,
+  IsString,
+  IsMongoId,
+} from 'class-validator';
 
 export class CreateChannelDto {
   @IsString()
@@ -12,6 +18,6 @@ export class CreateChannelDto {
   type: ChannelType;
 
   @IsNotEmpty()
-  @IsUUID()
+  @IsMongoId()
   serverId: string;
 }

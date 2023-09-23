@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsMongoId } from 'class-validator';
 
 export class MemberServerDto {
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   memberId: string;
 }

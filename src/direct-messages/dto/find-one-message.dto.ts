@@ -1,11 +1,11 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsMongoId } from 'class-validator';
 
 export class FindOneDirectMessageDto {
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   memberId: string;
 
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   conversationId: string;
 }

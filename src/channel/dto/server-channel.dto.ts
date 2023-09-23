@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsMongoId } from 'class-validator';
 
 export class ServerChannelDto {
   @IsNotEmpty()
-  @IsUUID()
+  @IsMongoId()
   serverId: string;
 }

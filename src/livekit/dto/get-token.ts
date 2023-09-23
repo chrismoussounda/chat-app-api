@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString, IsMongoId } from 'class-validator';
 
 export class GetToken {
-  @IsUUID()
+  @IsMongoId()
   @IsNotEmpty()
   roomId: string;
 
